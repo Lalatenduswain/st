@@ -1,31 +1,45 @@
 #!/bin/bash
 
-# Define the URL and target locations
-ST_URL="https://github.com/Lalatenduswain/st/raw/refs/heads/master/st"
-ST_TMP="/tmp/st"
-ST_TARGET="/usr/bin/st"
+echo "[+] Downloading st binary from your GitHub..."
 
-# Download the binary
-echo "[+] Downloading st binary..."
-curl -L -o "$ST_TMP" "$ST_URL"
+# Download the binary to current directory
+curl -L -o st https://github.com/Lalatenduswain/st/raw/refs/heads/master/st
 
-# Check if the download was successful
-if [ ! -f "$ST_TMP" ]; then
-    echo "[-] Download failed. Exiting."
-    exit 1
+# Check if download was successful
+if [[ ! -f "st" ]]; then
+  echo "[✗] Download failed. Exiting."
+  exit 1
 fi
 
 # Make it executable
-chmod +x "$ST_TMP"
+chmod +x st
 
-# Move it to /usr/bin (requires sudo)
+# Move to /usr/bin (requires sudo)
 echo "[+] Moving st to /usr/bin/ (may require sudo)"
-sudo mv "$ST_TMP" "$ST_TARGET"
+sudo mv st /usr/bin/st
 
-# Verify installation
-if command -v st &> /dev/null; then
-    echo "[✓] Installation successful. You can now use 'st' to check speedtest."
+# Ensure /usr/bin/st is executable
+sudo chmod +x /usr/bin/st
+
+# Add alias to shell configuration
+ALIAS_CMD="alias st='/usr/bin/st'"
+
+# Detect shell and set appropriate RC file
+if [[ "$SHELL" == */zsh ]]; then
+  SHELL_RC="$HOME/.zshrc"
+elif [[ "$SHELL" == */bash ]]; then
+  SHELL_RC="$HOME/.bashrc"
 else
-    echo "[-] Installation failed."
-    exit 1
+  SHELL_RC="$HOME/.profile"  # fallback
 fi
+
+# Add alias if not already present
+if ! grep -Fxq "$ALIAS_CMD" "$SHELL_RC"; then
+  echo "[+] Adding alias to $SHELL_RC"
+  echo "$ALIAS_CMD" >> "$SHELL_RC"
+  echo "[✓] Alias added. Please run 'source $SHELL_RC' or restart your terminal to activate."
+else
+  echo "[i] Alias already present in $SHELL_RC"
+fi
+
+echo "[✓] Installation complete. You can now use 'st' to run speedtest."
