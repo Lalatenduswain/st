@@ -1,4 +1,4 @@
-# 🚀 Speedtest CLI Installer – `install-speedtest-cli.sh`
+# 🚀 Speedtest CLI Installer
 
 Welcome to the **Speedtest CLI Installer** repo!  
 This project contains a lightweight Bash script that automates the process of downloading, setting permissions, and installing a CLI-based Speedtest binary (`st`) from GitHub.
