@@ -40,10 +40,10 @@ git clone https://github.com/Lalatenduswain/st.git
 cd st
 
 # 3. Make the installer script executable
-chmod +x install-speedtest-cli.sh
+chmod +x install_st.sh
 
 # 4. Run the installer
-./install-speedtest-cli.sh
+./install_st.sh
 ```
 
 After installation, verify with:
