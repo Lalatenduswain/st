@@ -33,22 +33,22 @@ Ensure your system meets these basic requirements:
 ### 🧪 Steps to Install
 
 ```bash
-# 1. Clone the repository
+# 1. Clone your repo
 git clone https://github.com/Lalatenduswain/st.git
 
-# 2. Navigate into the repo
+# 2. Navigate into the directory
 cd st
 
-# 3. Make the installer script executable
+# 3. Make the installer executable
 chmod +x install_st.sh
 
 # 4. Run the installer
 ./install_st.sh
-```
 
-After installation, verify with:
+# 5. Reload shell or run
+source ~/.bashrc   # or source ~/.zshrc depending on your shell
 
-```bash
+# 6. Run speedtest!
 st
 ```
 
