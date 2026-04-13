@@ -14,12 +14,18 @@ fi
 # Make it executable
 chmod +x st
 
-# Move to /usr/bin (requires sudo)
+# Move to /usr/bin (use sudo only if not root)
 echo "[+] Moving st to /usr/bin/ (may require sudo)"
-sudo mv st /usr/bin/st
-
-# Ensure /usr/bin/st is executable
-sudo chmod +x /usr/bin/st
+if [[ $EUID -eq 0 ]]; then
+  mv st /usr/bin/st
+  chmod +x /usr/bin/st
+elif command -v sudo &>/dev/null; then
+  sudo mv st /usr/bin/st
+  sudo chmod +x /usr/bin/st
+else
+  echo "[✗] Not root and sudo not available. Please run as root or install sudo."
+  exit 1
+fi
 
 # Add alias to shell configuration
 ALIAS_CMD="alias st='/usr/bin/st'"
