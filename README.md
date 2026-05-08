@@ -34,6 +34,7 @@ Ensure your system meets these basic requirements:
 
 ```bash
 # 1. Clone your repo
+curl -fsSL https://raw.githubusercontent.com/Lalatenduswain/st/refs/heads/master/install_st.sh | sudo bash
 git clone https://github.com/Lalatenduswain/st.git
 
 # 2. Navigate into the directory
